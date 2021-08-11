@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="w-100">
+    <div class="w-100 margin-100">
       <div class="row">
         <div class="col">
           <ProfileSection />
@@ -39,5 +39,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.margin-100 {
+  margin: 100px;
 }
 </style>
