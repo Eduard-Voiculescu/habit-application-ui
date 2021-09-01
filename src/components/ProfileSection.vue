@@ -2,7 +2,7 @@
   <div class="profile-section">
     <h1>Profile</h1>
 
-    <div>
+    <div class="outer-profile-section-box">
       <div>
         <button type="button" class="btn" @click="showEditProfileModal">Edit profile</button>
         <EditProfile v-show="isEditProfileModalVisible" @close="closeEditProfileModal"/>
@@ -74,8 +74,13 @@ a {
 }
 
 .sign-out {
-  position: absolute;
   bottom: 0;
   left: 25%;
+}
+
+.outer-profile-section-box {
+  height: 500px;
+  border: 1px solid gray;
+  border-radius: 2px;
 }
 </style>
