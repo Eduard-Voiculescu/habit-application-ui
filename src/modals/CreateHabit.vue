@@ -48,9 +48,21 @@
 export default {
   name: 'CreateHabit',
   methods: {
-    createHabit() {
+    async createHabit() {
       console.log("createHabit");
-      this.$emit('close');
+      try {
+        const response = await this.$http.post(
+            "http://localhost:9000/api/habit/create",
+            {
+              id: "",
+              name: "habit-1",
+              description: "My very first habit."
+            }
+        )
+        console.log(response);
+      } catch (exception) {
+        console.log(exception);
+      }
     },
   },
 };

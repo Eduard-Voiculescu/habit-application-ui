@@ -1,7 +1,8 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Router from 'vue-router'
+import App from "@/App";
 
-Vue.use(VueRouter)
+Vue.use(Router)
 
 export default new Router({
     mode: 'history',
@@ -9,8 +10,7 @@ export default new Router({
         path: '/',
         name: 'Home',
         components: {
-            default: App,
-            sidebar: SidebarStandard,
+            default: App
         },
     }]
 });
