@@ -18,6 +18,7 @@
 <script>
 import SignOut from "@/modals/SignOut";
 import EditProfile from "@/modals/EditProfile";
+import '@/assets/styles/components/profile-section.css';
 
 export default {
   name: 'ProfileSection',
@@ -47,40 +48,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-
-.profile-section {
-  height: 600px;
-  width: auto;
-  position: relative
-}
-
-.sign-out {
-  bottom: 0;
-  left: 25%;
-}
-
-.outer-profile-section-box {
-  height: 500px;
-  border: 1px solid gray;
-  border-radius: 2px;
-}
-</style>

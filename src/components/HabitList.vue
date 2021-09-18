@@ -1,54 +1,40 @@
 <template>
   <div class="habit-section">
-    <h1>Habit</h1>
-
-    <button type="button" class="btn" @click="createHabit">+</button>
-
-    <div class="outer-habit-section-box">
-      
+    <div id="wrapper">
+      <div id="left-side-wrapper">
+        <h1>Habit</h1>
+      </div>
+      <div id="right-side-wrapper">
+        <button type="button" class="round-btn" @click="showCreateHabitModal">+</button>
+        <CreateHabit v-show="isCreateHabitModalVisible" @close="closeCreateHabitModal"></CreateHabit>
+      </div>
     </div>
+
+    <div class="outer-habit-section-box"></div>
   </div>
 </template>
 
 <script>
-// import * from '../Api';
-// import Habit from '../models/habit'
+import '@/assets/styles/components/habit-list.css';
+import CreateHabit from "@/modals/CreateHabit";
 
 export default {
   name: 'HabitList',
+  components: {
+    CreateHabit
+  },
+  data() {
+    return {
+      isCreateHabitModalVisible: false
+    }
+  },
   methods: {
-    createHabit() {
-      // Api.createHabit();
+    showCreateHabitModal() {
+      this.isCreateHabitModalVisible = true;
+    },
+    closeCreateHabitModal() {
+      this.isCreateHabitModalVisible = false;
     }
   }
 }
 </script>
-
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-
-.habit-section {
-  height: 600px;
-  width: auto;
-  position: relative
-}
-
-.outer-habit-section-box {
-  height: 500px;
-  border: 1px solid gray;
-  border-radius: 2px;
-}
-</style>
