@@ -1,0 +1,29 @@
+h3 {
+    margin: 40px 0 0;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+a {
+    color: #42b983;
+}
+
+.description-section {
+    height: 600px;
+    width: 1225px;
+    position: relative
+}
+
+.outer-description-section-box {
+    height: 500px;
+    border: 1px solid gray;
+    border-radius: 2px;
+}
