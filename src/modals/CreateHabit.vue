@@ -9,11 +9,30 @@
         </header>
 
         <section class="modal-body">
-          <slot name="habit-name">
+          <form>
+            <div>
+              <p class="habit-name">Habit name:
+                <label for="habit-name" class="habit-name"></label>
+                <input type="text" id="habit-name" name="habit-name">
+              </p>
+            </div>
 
-          </slot>
-          <slot name="">
-          </slot>
+            <br/><br/><br/>
+
+            <div>
+              <p class="habit-description">Description:
+                <br />
+                <label for="habit-description"></label>
+                <textarea
+                    type="text"
+                    id="habit-description"
+                    name="habit-description"
+                    rows="3"
+                    cols="50"/>
+              </p>
+
+            </div>
+          </form>
         </section>
 
         <footer class="modal-footer">
@@ -53,7 +72,6 @@ export default {
 .modal {
   background: #FFFFFF;
   box-shadow: 2px 2px 20px 1px;
-  /*overflow-x: auto;*/
   overflow: visible;
   display: flex;
   flex-direction: column;
@@ -111,5 +129,15 @@ export default {
 
 .modal-fade-enter-active, .modal-fade-leave-active {
   transition: opacity .5s ease;
+}
+
+.habit-name {
+  text-align: left;
+  padding-left: 10px;
+}
+
+.habit-description {
+  text-align: left;
+  padding-left: 10px;
 }
 </style>
