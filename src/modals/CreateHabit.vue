@@ -1,5 +1,5 @@
 <template>
-  <transition name="modal-fade">
+  <div>
     <div class="modal-backdrop">
       <div class="modal">
         <header class="modal-header">
@@ -9,11 +9,11 @@
         </header>
 
         <section class="modal-body">
-          <form>
+          <form id="createHabit-form">
             <div>
               <p class="habit-name">Habit name:
                 <label for="habit-name" class="habit-name"></label>
-                <input type="text" id="habit-name" name="habit-name">
+                <input type="text" id="habit-name" name="habit-name" required v-model="habitName">
               </p>
             </div>
 
@@ -28,40 +28,53 @@
                     id="habit-description"
                     name="habit-description"
                     rows="3"
-                    cols="50"/>
+                    cols="50"
+                    v-model="description"/>
               </p>
-
             </div>
           </form>
         </section>
 
         <footer class="modal-footer">
-          <button type="button" class="btn-yes btn-blue" @click="createHabit">Create</button>
-          <!-- TODO: need to bind the create button to an actual backend call to create a habit -->
+          <button type="submit" class="btn-yes btn-blue" @click="createHabit">Create</button>
         </footer>
       </div>
     </div>
-  </transition>
+  </div>
 </template>
 
 <script>
+import Habit from "@/models/Habit";
+
 export default {
   name: 'CreateHabit',
+  data() {
+    return {
+      habitName: '',
+      description: ''
+    }
+  },
   methods: {
     async createHabit() {
-      console.log("createHabit");
       try {
         const response = await this.$http.post(
             "http://localhost:9000/api/habit/create",
-            {
-              id: "",
-              name: "habit-1",
-              description: "My very first habit."
-            }
+            new Habit(
+                null,
+                this.habitName,
+                this.description
+            )
         )
-        console.log(response);
+
+        if (response && response.status === 200) {
+          this.habitName = null;
+          this.description = null;
+          this.$emit('close');
+        } else {
+          console.log(response);
+        }
       } catch (exception) {
-        console.log(exception);
+        console.error(exception);
       }
     },
   },
@@ -84,6 +97,7 @@ export default {
 .modal {
   background: #FFFFFF;
   box-shadow: 2px 2px 20px 1px;
+  z-index: 999999;
   overflow: visible;
   display: flex;
   flex-direction: column;
