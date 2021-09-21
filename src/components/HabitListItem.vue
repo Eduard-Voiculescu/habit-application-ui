@@ -1,16 +1,32 @@
 <template>
   <div>
     <form id="habitList-form">
-      <input type="radio" @change="checkHabitHasDone" />
-      <p>{{habitName}}</p>
+      <div class="container container-habit-list-item">
+        <div class="row row-habit-list-item">
+          <div class="col-3">
+            <input type="radio" @change="checkHabitHasDone" />
+          </div>
+          <div class="col-6">
+            <p>{{habitName}}</p>
+          </div>
+          <div class="col-3">
+            <DeleteIcon />
+          </div>
+        </div>
+      </div>
     </form>
   </div>
 </template>
 
 <script>
+import DeleteIcon from 'vue-material-design-icons/Delete.vue';
+
 export default {
   name: "HabitListItem",
   props: ['habitId', 'habitName', 'habitDescription'],
+  components: {
+    DeleteIcon
+  },
   data() {
     return {
       habitDone: false
@@ -35,5 +51,14 @@ export default {
 </script>
 
 <style scoped>
+.container-habit-list-item {
+  margin: 0;
+  padding: 0;
+}
+
+.row-habit-list-item {
+  padding-top: 10px;
+  margin: 0;
+}
 
 </style>

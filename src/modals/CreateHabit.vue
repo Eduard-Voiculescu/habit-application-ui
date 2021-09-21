@@ -13,7 +13,13 @@
             <div>
               <p class="habit-name">Habit name:
                 <label for="habit-name" class="habit-name"></label>
-                <input type="text" id="habit-name" name="habit-name" required v-model="habitName">
+                <input
+                    type="text"
+                    id="habit-name"
+                    name="habit-name"
+                    placeholder="Habit name"
+                    required
+                    v-model="habitName">
               </p>
             </div>
 
@@ -56,6 +62,11 @@ export default {
   },
   methods: {
     async createHabit() {
+      if (!this.habitName || this.habitName === "") {
+        this.$toasted.error('Habit name can\'t be empty.').goAway(1500);
+        return;
+      }
+
       try {
         const response = await this.$http.post(
             "http://localhost:9000/api/habit/create",
@@ -67,6 +78,7 @@ export default {
         )
 
         if (response && response.status === 200) {
+          this.$toasted.success(`Habit ${this.habitName} has been successfully created.`).goAway(1500);
           this.habitName = null;
           this.description = null;
           this.$emit('close');

@@ -11,8 +11,8 @@
     </div>
 
     <div class="outer-habit-section-box">
-      <ol>
-        <li v-for="habit in habitList" :key="habit.id">
+      <ol class="ordered-habit-list">
+        <li class="ordered-habit-list-item" v-for="habit in habitList" :key="habit.id">
           <HabitListItem :habitId="habit.id" :habitName="habit.name" :habitDescription="habit.description"/>
         </li>
       </ol>

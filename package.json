@@ -13,10 +13,12 @@
     "bootstrap": "^5.0.2",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
+    "material-design-icons": "^3.0.1",
     "vue": "^2.6.11",
     "vue-axios": "^3.3.7",
-    "vue-material-design-icons": "^4.12.1",
-    "vue-router": "^3.5.2"
+    "vue-material-design-icons": "^4.13.0",
+    "vue-router": "^3.5.2",
+    "vue-toasted": "^1.1.28"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

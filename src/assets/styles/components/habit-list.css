@@ -47,3 +47,12 @@ a {
     border: 1px solid gray;
     border-radius: 2px;
 }
+
+.ordered-habit-list {
+    padding: 0;
+}
+
+.ordered-habit-list-item {
+    margin: 0;
+    width: 100%;
+}
