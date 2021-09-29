@@ -16,8 +16,7 @@
 
         <footer class="modal-footer">
           <button type="button" class="btn-go-back btn-gray" @click="close">Go back</button>
-          <button type="button" class="btn-yes btn-blue" @click="close">Yes</button>
-          <!-- TODO: need to bind the yes button to an actual backend call to delete habit -->
+          <button type="button" class="btn-yes btn-blue" @click="deleteHabit">Yes</button>
         </footer>
       </div>
     </div>
@@ -27,10 +26,30 @@
 <script>
 export default {
   name: 'DeleteHabit',
+  props: ['habitId'],
   methods: {
     close() {
       this.$emit('close');
     },
+    async deleteHabit() {
+      if (!this.$props.habitId || this.$props.habitId === "") {
+        this.$toasted.error('Habit id is empty').goAway(1500);
+        return;
+      }
+
+      try {
+        const response = await this.$http.delete(`http://localhost:9000/api/habit/delete?habitId=${this.$props.habitId}`)
+
+        if (response && response.status === 200) {
+          this.$toasted.success(`Habit ${this.$props.habitId} has been successfully deleted.`).goAway(3000);
+          this.$emit('close');
+        } else {
+          console.log(response);
+        }
+      } catch (exception) {
+        console.error(exception);
+      }
+    }
   },
 };
 </script>

@@ -42,6 +42,7 @@
         </section>
 
         <footer class="modal-footer">
+          <button type="button" class="btn-yes btn-gray" @click="close">Close</button>
           <button type="submit" class="btn-yes btn-blue" @click="createHabit">Create</button>
         </footer>
       </div>
@@ -61,6 +62,9 @@ export default {
     }
   },
   methods: {
+    close() {
+      this.$emit('close');
+    },
     async createHabit() {
       if (!this.habitName || this.habitName === "") {
         this.$toasted.error('Habit name can\'t be empty.').goAway(1500);
@@ -78,7 +82,7 @@ export default {
         )
 
         if (response && response.status === 200) {
-          this.$toasted.success(`Habit ${this.habitName} has been successfully created.`).goAway(1500);
+          this.$toasted.success(`Habit ${this.habitName} has been successfully created.`).goAway(3000);
           this.habitName = null;
           this.description = null;
           this.$emit('close');

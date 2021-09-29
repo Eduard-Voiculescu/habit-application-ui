@@ -10,7 +10,8 @@
             <p>{{habitName}}</p>
           </div>
           <div class="col-3">
-            <DeleteIcon />
+            <DeleteIcon @click="showDeleteHabitModal" />
+            <DeleteHabit v-show="isDeleteHabitModalVisible" :habitId="habitId" @close="closeDeleteHabitModal" />
           </div>
         </div>
       </div>
@@ -20,19 +21,28 @@
 
 <script>
 import DeleteIcon from 'vue-material-design-icons/Delete.vue';
+import DeleteHabit from "@/modals/DeleteHabit";
 
 export default {
   name: "HabitListItem",
   props: ['habitId', 'habitName', 'habitDescription'],
   components: {
-    DeleteIcon
+    DeleteIcon,
+    DeleteHabit
   },
   data() {
     return {
-      habitDone: false
+      habitDone: false,
+      isDeleteHabitModalVisible: false
     }
   },
   methods : {
+    showDeleteHabitModal() {
+      this.isDeleteHabitModalVisible = true;
+    },
+    closeDeleteHabitModal() {
+      this.isDeleteHabitModalVisible = false;
+    },
     async checkHabitHasDone() {
       try {
         const response = await this.$http.delete(
@@ -61,4 +71,7 @@ export default {
   margin: 0;
 }
 
+.deleteHabitModal {
+
+}
 </style>
