@@ -6,14 +6,23 @@
       </div>
       <div id="right-side-wrapper">
         <button type="button" class="round-btn" data-toggle="modal" data-target="#exampleModal" @click="showCreateHabitModal">+</button>
-        <CreateHabit v-show="isCreateHabitModalVisible" @close="closeCreateHabitModal" />
+        <CreateHabit
+            v-show="isCreateHabitModalVisible"
+            @close="closeCreateHabitModal"
+            @habitCreated="habitCreated"
+        />
       </div>
     </div>
 
     <div class="outer-habit-section-box">
       <ol class="ordered-habit-list">
         <li class="ordered-habit-list-item" v-for="habit in habitList" :key="habit.id">
-          <HabitListItem :habitId="habit.id" :habitName="habit.name" :habitDescription="habit.description"/>
+          <HabitListItem
+              :habitId="habit.id"
+              :habitName="habit.name"
+              :habitDescription="habit.description"
+              @isHabitItemAvailable="isHabitItemAvailable"
+          />
         </li>
       </ol>
     </div>
@@ -37,7 +46,7 @@ export default {
       isCreateHabitModalVisible: false
     }
   },
-  async mounted() {
+  async created() {
     try {
       const response = await this.$http.get('http://localhost:9000/api/habit');
       if (response && response.status === 200) {
@@ -53,6 +62,20 @@ export default {
     },
     closeCreateHabitModal() {
       this.isCreateHabitModalVisible = false;
+    },
+    isHabitItemAvailable(isHabitItemDeleted, habitId) {
+      if (isHabitItemDeleted) {
+        for (let i = 0; i < this.habitList.length; i++) {
+          if (this.habitList[i].id === habitId) {
+            this.habitList.splice(i, 1);
+            i--;
+            break;
+          }
+        }
+      }
+    },
+    habitCreated(habit) {
+      this.habitList.push(habit);
     }
   }
 }

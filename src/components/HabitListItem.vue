@@ -4,14 +4,19 @@
       <div class="container container-habit-list-item">
         <div class="row row-habit-list-item">
           <div class="col-3">
-            <input type="radio" @change="checkHabitHasDone" />
+            <input type="radio" @change="completeHabit" />
           </div>
           <div class="col-6">
             <p>{{habitName}}</p>
           </div>
           <div class="col-3">
             <DeleteIcon @click="showDeleteHabitModal" />
-            <DeleteHabit v-show="isDeleteHabitModalVisible" :habitId="habitId" @close="closeDeleteHabitModal" />
+            <DeleteHabit
+                v-show="isDeleteHabitModalVisible"
+                :habitId="habitId"
+                @close="closeDeleteHabitModal"
+                @deleteHabitItemFromHtml="deleteHabitItemFromHtml"
+            />
           </div>
         </div>
       </div>
@@ -43,15 +48,20 @@ export default {
     closeDeleteHabitModal() {
       this.isDeleteHabitModalVisible = false;
     },
-    async checkHabitHasDone() {
+    deleteHabitItemFromHtml() {
+      this.$emit('isHabitItemAvailable', true, this.$props.habitId);
+    },
+    async completeHabit() {
       try {
-        const response = await this.$http.delete(
-            `http://localhost:9000/api/habit/delete?habitId=${this.$props.habitId}`
+        const response = await this.$http.post(
+            `http://localhost:9000/api/habit/complete?habitId=${this.$props.habitId}`
         );
 
         if (!response || response.status !== 200) {
           console.log(response);
         }
+
+        this.$emit('isHabitItemAvailable', true, this.$props.habitId);
       } catch (exception) {
         console.error(exception);
       }

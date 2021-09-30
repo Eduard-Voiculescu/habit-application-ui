@@ -42,6 +42,7 @@ export default {
 
         if (response && response.status === 200) {
           this.$toasted.success(`Habit ${this.$props.habitId} has been successfully deleted.`).goAway(3000);
+          this.$emit('deleteHabitItemFromHtml');
           this.$emit('close');
         } else {
           console.log(response);

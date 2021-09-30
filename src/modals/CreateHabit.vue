@@ -52,6 +52,7 @@
 
 <script>
 import Habit from "@/models/Habit";
+import {v4 as uuidv4} from 'uuid';
 
 export default {
   name: 'CreateHabit',
@@ -72,19 +73,20 @@ export default {
       }
 
       try {
+        const habit = new Habit(uuidv4(), this.habitName, this.description);
+
         const response = await this.$http.post(
             "http://localhost:9000/api/habit/create",
-            new Habit(
-                null,
-                this.habitName,
-                this.description
-            )
+            habit
         )
 
         if (response && response.status === 200) {
           this.$toasted.success(`Habit ${this.habitName} has been successfully created.`).goAway(3000);
+          this.$emit("habitCreated", habit)
+
           this.habitName = null;
           this.description = null;
+
           this.$emit('close');
         } else {
           console.log(response);
