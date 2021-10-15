@@ -1,3 +1,4 @@
+<script src="../models/Habit.js"></script>
 <template>
   <div class="habit-section">
     <div id="wrapper">
@@ -22,6 +23,8 @@
               :habitName="habit.name"
               :habitDescription="habit.description"
               @isHabitItemAvailable="isHabitItemAvailable"
+              @callAppEventToShowDetailsOnHabit="callAppEventToShowDetailsOnHabit"
+              @deleteEventToDeleteDetailsOnHabit="deleteEventToDeleteDetailsOnHabit"
           />
         </li>
       </ol>
@@ -76,6 +79,12 @@ export default {
     },
     habitCreated(habit) {
       this.habitList.push(habit);
+    },
+    callAppEventToShowDetailsOnHabit(habit) {
+      this.$emit('callAppEventToShowDetailsOnHabit', habit);
+    },
+    deleteEventToDeleteDetailsOnHabit() {
+      this.$emit('deleteEventToDeleteDetailsOnHabit');
     }
   }
 }

@@ -23,7 +23,13 @@ a {
 }
 
 .outer-description-section-box {
-    height: 500px;
+    height: 550px;
     border: 1px solid gray;
     border-radius: 2px;
+}
+
+.detailed-habit-information {
+    padding-top: 10px;
+    padding-left: 25px;
+    text-align: left;
 }

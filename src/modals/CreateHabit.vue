@@ -81,7 +81,7 @@ export default {
         )
 
         if (response && response.status === 200) {
-          this.$toasted.success(`Habit ${this.habitName} has been successfully created.`).goAway(3000);
+          this.$toasted.success(`Habit [${this.habitName}] has been successfully created.`).goAway(3000);
           this.$emit("habitCreated", habit)
 
           this.habitName = null;
@@ -119,7 +119,7 @@ export default {
   overflow: visible;
   display: flex;
   flex-direction: column;
-  height: 600px;
+  height: 400px;
   width: 600px;
   position: absolute;
   float: left;

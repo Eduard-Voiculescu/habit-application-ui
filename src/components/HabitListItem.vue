@@ -6,7 +6,7 @@
           <div class="col-3">
             <input type="radio" @change="completeHabit" />
           </div>
-          <div class="col-6">
+          <div class="col-6" @click="callAppEventToShowDetailsOnHabit">
             <p>{{habitName}}</p>
           </div>
           <div class="col-3">
@@ -27,6 +27,7 @@
 <script>
 import DeleteIcon from 'vue-material-design-icons/Delete.vue';
 import DeleteHabit from "@/modals/DeleteHabit";
+import Habit from "../models/Habit";
 
 export default {
   name: "HabitListItem",
@@ -50,6 +51,11 @@ export default {
     },
     deleteHabitItemFromHtml() {
       this.$emit('isHabitItemAvailable', true, this.$props.habitId);
+      this.$emit('deleteEventToDeleteDetailsOnHabit');
+    },
+    callAppEventToShowDetailsOnHabit() {
+      this.$emit('callAppEventToShowDetailsOnHabit',
+          new Habit(this.$props.habitId, this.$props.habitName, this.$props.habitDescription));
     },
     async completeHabit() {
       try {
@@ -57,11 +63,14 @@ export default {
             `http://localhost:9000/api/habit/complete?habitId=${this.$props.habitId}`
         );
 
-        if (!response || response.status !== 200) {
-          console.log(response);
+        if (response && response.status === 200) {
+          this.$toasted.success(`Habit [${this.habitName}] has been successfully completed.`).goAway(3000);
+          this.$emit('isHabitItemAvailable', true, this.$props.habitId);
+          this.$emit('deleteEventToDeleteDetailsOnHabit');
+        } else {
+          this.$toasted.error(`Habit [${this.habitName}] could not be completed.`).goAway(3000);
         }
 
-        this.$emit('isHabitItemAvailable', true, this.$props.habitId);
       } catch (exception) {
         console.error(exception);
       }

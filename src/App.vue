@@ -3,10 +3,16 @@
     <div class="w-75 margin-100">
       <div class="row">
         <div class="col">
-          <HabitList />
+          <HabitList
+              @callAppEventToShowDetailsOnHabit="callAppEventToShowDetailsOnHabit"
+              @deleteEventToDeleteDetailsOnHabit="deleteEventToDeleteDetailsOnHabit"/>
         </div>
         <div class="col-8">
-          <DescriptionHabit />
+          <DescriptionHabit
+            :habitId="selectedHabitId"
+            :habitName="selectedHabitName"
+            :habitDescription="selectedHabitDescription"
+          />
         </div>
       </div>
     </div>
@@ -23,6 +29,25 @@ export default {
   components: {
     HabitList,
     DescriptionHabit
+  },
+  data() {
+    return {
+      selectedHabitId: null,
+      selectedHabitName: null,
+      selectedHabitDescription: null
+    }
+  },
+  methods: {
+    callAppEventToShowDetailsOnHabit(habit) {
+      this.selectedHabitId = habit.id;
+      this.selectedHabitName = habit.name;
+      this.selectedHabitDescription = habit.description;
+    },
+    deleteEventToDeleteDetailsOnHabit() {
+      this.selectedHabitId = null;
+      this.selectedHabitName = null;
+      this.selectedHabitDescription = null;
+    }
   }
 }
 </script>
